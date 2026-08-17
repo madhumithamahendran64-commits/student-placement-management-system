@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Companies</title>
+</head>
+
+<body>
+
+    <h1>Student Placement Management System</h1>
+
+    <h2>Company List</h2>
+
+    <table border="1">
+
+        <tr>
+            <th>ID</th>
+            <th>Company Name</th>
+            <th>Job Role</th>
+            <th>Location</th>
+            <th>Salary</th>
+            <th>Minimum CGPA</th>
+            <th>Required Skills</th>
+        </tr>
+
+        {% for company in companies %}
+
+        <tr>
+            <td>{{ company["company_id"] }}</td>
+            <td>{{ company["company_name"] }}</td>
+            <td>{{ company["job_role"] }}</td>
+            <td>{{ company["location"] }}</td>
+            <td>{{ company["salary"] }}</td>
+            <td>{{ company["min_cgpa"] }}</td>
+            <td>{{ company["required_skills"] }}</td>
+        </tr>
+
+        {% endfor %}
+
+    </table>
+
+</body>
+
+</html>

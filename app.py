@@ -19,6 +19,51 @@ def students():
     connection.close()
 
     return render_template("students.html", students=students)
+@app.route("/companies")
+def companies():
+
+    connection = get_db_connection()
+
+    companies = connection.execute(
+        "SELECT * FROM companies"
+    ).fetchall()
+
+    connection.close()
+
+    return render_template("companies.html", companies=companies)
+@app.route("/add-company", methods=["GET", "POST"])
+def add_company():
+
+    if request.method == "POST":
+
+        company_name = request.form["company_name"]
+        job_role = request.form["job_role"]
+        location = request.form["location"]
+        salary = request.form["salary"]
+        min_cgpa = request.form["min_cgpa"]
+        required_skills = request.form["required_skills"]
+
+        connection = get_db_connection()
+
+        connection.execute("""
+            INSERT INTO companies
+            (company_name, job_role, location, salary, min_cgpa, required_skills)
+            VALUES (?, ?, ?, ?, ?, ?)
+        """, (
+            company_name,
+            job_role,
+            location,
+            salary,
+            min_cgpa,
+            required_skills
+        ))
+
+        connection.commit()
+        connection.close()
+
+        return "Company added successfully!"
+
+    return render_template("add_company.html")
 @app.route("/register", methods=["GET", "POST"])
 def register():
 
