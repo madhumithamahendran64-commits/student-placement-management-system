@@ -1,6 +1,9 @@
 import sqlite3
+
 connection = sqlite3.connect("placement.db")
 cursor = connection.cursor()
+
+# Students table
 cursor.execute("""
 CREATE TABLE IF NOT EXISTS students (
     student_id INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -12,6 +15,8 @@ CREATE TABLE IF NOT EXISTS students (
     skills TEXT
 )
 """)
+
+# Companies table
 cursor.execute("""
 CREATE TABLE IF NOT EXISTS companies (
     company_id INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -23,6 +28,24 @@ CREATE TABLE IF NOT EXISTS companies (
     required_skills TEXT
 )
 """)
+# Recreate placements table
+cursor.execute("DROP TABLE IF EXISTS placements")
+
+cursor.execute("""
+CREATE TABLE placements (
+    placement_id INTEGER PRIMARY KEY AUTOINCREMENT,
+    company_id INTEGER,
+    job_role TEXT,
+    location TEXT,
+    salary REAL,
+    min_cgpa REAL,
+    required_skills TEXT,
+    FOREIGN KEY (company_id) REFERENCES companies(company_id)
+)
+""")
+
+
+# Applications table
 cursor.execute("""
 CREATE TABLE IF NOT EXISTS applications (
     application_id INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -34,9 +57,11 @@ CREATE TABLE IF NOT EXISTS applications (
     FOREIGN KEY (company_id) REFERENCES companies(company_id)
 )
 """)
-# Add sample students
+
+# Sample students
 cursor.execute("""
-INSERT INTO students (name, email, password, department, cgpa, skills)
+INSERT INTO students
+(name, email, password, department, cgpa, skills)
 VALUES (?, ?, ?, ?, ?, ?)
 """, (
     "Arun",
@@ -48,7 +73,8 @@ VALUES (?, ?, ?, ?, ?, ?)
 ))
 
 cursor.execute("""
-INSERT INTO students (name, email, password, department, cgpa, skills)
+INSERT INTO students
+(name, email, password, department, cgpa, skills)
 VALUES (?, ?, ?, ?, ?, ?)
 """, (
     "Priya",
@@ -60,7 +86,8 @@ VALUES (?, ?, ?, ?, ?, ?)
 ))
 
 cursor.execute("""
-INSERT INTO students (name, email, password, department, cgpa, skills)
+INSERT INTO students
+(name, email, password, department, cgpa, skills)
 VALUES (?, ?, ?, ?, ?, ?)
 """, (
     "Ravi",
@@ -73,4 +100,5 @@ VALUES (?, ?, ?, ?, ?, ?)
 
 connection.commit()
 connection.close()
+
 print("Database created successfully!")

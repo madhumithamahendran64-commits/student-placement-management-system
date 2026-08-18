@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Placement Opportunities</title>
+</head>
+
+<body>
+
+    <h1>Student Placement Management System</h1>
+
+    <h2>Placement Opportunities</h2>
+
+    <table border="1">
+
+        <tr>
+            <th>ID</th>
+            <th>Company</th>
+            <th>Job Role</th>
+            <th>Location</th>
+            <th>Salary</th>
+            <th>Minimum CGPA</th>
+            <th>Required Skills</th>
+            <th>Action</th>
+        </tr>
+
+        {% for placement in placements %}
+
+        <tr>
+            <td>{{ placement["placement_id"] }}</td>
+            <td>{{ placement["company_name"] }}</td>
+            <td>{{ placement["job_role"] }}</td>
+            <td>{{ placement["location"] }}</td>
+            <td>{{ placement["salary"] }}</td>
+            <td>{{ placement["min_cgpa"] }}</td>
+            <td>{{ placement["required_skills"] }}</td>
+            <td>
+              <a href="/apply/{{ placement['placement_id'] }}">Apply</a>
+            </td>
+        </tr>
+
+        {% endfor %}
+
+    </table>
+
+</body>
+
+</html>

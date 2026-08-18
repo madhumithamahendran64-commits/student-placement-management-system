@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Applications</title>
+</head>
+
+<body>
+
+    <h1>Student Placement Management System</h1>
+
+    <h2>Student Applications</h2>
+
+    <table border="1">
+
+        <tr>
+            <th>ID</th>
+            <th>Student Name</th>
+            <th>Company</th>
+            <th>Application Date</th>
+            <th>Status</th>
+        </tr>
+
+        {% for application in applications %}
+
+        <tr>
+            <td>{{ application["application_id"] }}</td>
+            <td>{{ application["name"] }}</td>
+            <td>{{ application["company_name"] }}</td>
+            <td>{{ application["application_date"] }}</td>
+            <td>{{ application["status"] }}</td>
+        </tr>
+
+        {% endfor %}
+
+    </table>
+
+</body>
+
+</html>
